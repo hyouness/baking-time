@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Baking Time</string>
+    <string name="error_message">Error occurred while loading recipes.</string>
+    <string name="recipe_image">Recipe Image</string>
+    <string name="retry_loading_recipes">Retry loading recipes…</string>
+    <string name="retry">Retry</string>
+    <string name="no_recipes">No recipes found.</string>
+</resources>
