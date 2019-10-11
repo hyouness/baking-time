@@ -26,17 +26,56 @@
             android:contentDescription="@string/recipe_image"
             tools:src="@drawable/recipe_placeholder"/>
 
-        <TextView
-            android:id="@+id/recipe_name_tv"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="0dp"
-            android:padding="10dp"
-            android:background="@drawable/recipe_title_gradient"
-            tools:text="Nutella Pie"
-            android:textSize="@dimen/recipe_title_text_size"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"/>
+            android:layout_gravity="bottom"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:background="@drawable/recipe_title_gradient">
+            <TextView
+                android:id="@+id/recipe_name_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8.5"
+                android:gravity="start"
+                android:layout_marginTop="0dp"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                tools:text="Nutella Pie"
+                android:textSize="@dimen/recipe_title_text_size"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:id="@+id/servings_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_weight="1.5"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="@dimen/servings_icon_size"
+                    android:layout_height="@dimen/servings_icon_size"
+                    android:src="@drawable/servings_icon"
+                    android:contentDescription="@string/servings_icon" />
+
+                <TextView
+                    android:id="@+id/servings_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    tools:text="8"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/recipe_title_text_size"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

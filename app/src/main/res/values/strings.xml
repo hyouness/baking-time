@@ -5,4 +5,5 @@
     <string name="retry_loading_recipes">Retry loading recipes…</string>
     <string name="retry">Retry</string>
     <string name="no_recipes">No recipes found.</string>
+    <string name="servings_icon">Icon for number of servings</string>
 </resources>

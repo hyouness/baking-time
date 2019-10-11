@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingtime.R;
-import com.example.bakingtime.RecipesViewHolder;
 import com.example.bakingtime.model.Recipe;
 
 import java.util.ArrayList;
@@ -47,11 +46,11 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesViewHolder> {
         notifyDataSetChanged();
     }
 
-    public List<Recipe> getRecipes() {
+    List<Recipe> getRecipes() {
         return recipes;
     }
 
-    public void onRecipeClick(Recipe recipe) {
+    void onRecipeClick(Recipe recipe) {
         onRecipeClickListener.onRecipeClick(recipe);
     }
 }

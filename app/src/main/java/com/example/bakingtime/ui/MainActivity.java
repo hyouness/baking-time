@@ -1,4 +1,4 @@
-package com.example.bakingtime;
+package com.example.bakingtime.ui;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +11,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bakingtime.R;
 import com.example.bakingtime.adapter.OnRecipeClickListener;
 import com.example.bakingtime.adapter.RecipesAdapter;
 import com.example.bakingtime.model.Recipe;
 import com.example.bakingtime.viewmodel.MainViewModel;
 
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -33,9 +35,15 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
     @BindView(R.id.retry_btn)
     Button button;
 
-    RecipesAdapter recipesAdapter;
+    @BindBool(R.bool.isTablet)
+    boolean isTablet;
 
+    @BindBool(R.bool.isLandscape)
+    boolean isLandscape;
+
+    RecipesAdapter recipesAdapter;
     private MainViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +84,12 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
 
     private int getSpanCount() {
         int spanCount = 1;
-
-        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-        boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
-
         if (isLandscape && isTablet) {
             spanCount = 3;
         }
-
         if ((isTablet && !isLandscape) || (!isTablet && isLandscape)) {
             spanCount = 2;
         }
-
         return spanCount;
     }
 
