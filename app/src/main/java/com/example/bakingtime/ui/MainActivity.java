@@ -1,6 +1,8 @@
 package com.example.bakingtime.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -15,7 +17,10 @@ import com.example.bakingtime.R;
 import com.example.bakingtime.adapter.OnRecipeClickListener;
 import com.example.bakingtime.adapter.RecipesAdapter;
 import com.example.bakingtime.model.Recipe;
+import com.example.bakingtime.utilities.AppConstants;
 import com.example.bakingtime.viewmodel.MainViewModel;
+
+import java.util.ArrayList;
 
 import butterknife.BindBool;
 import butterknife.BindView;
@@ -105,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
 
     void showErrorMessage(int messageId) {
         button.setVisibility(View.VISIBLE);
-
         errorMessageTv.setText(messageId);
         errorMessageTv.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
@@ -116,9 +120,11 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
         errorMessageTv.setVisibility(View.INVISIBLE);
     }
 
-
     @Override
     public void onRecipeClick(Recipe recipe) {
-
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
+        intent.putExtra(AppConstants.RECIPE_NAME, recipe.getName());
+        intent.putParcelableArrayListExtra(AppConstants.RECIPE_INGREDIENTS, (ArrayList<? extends Parcelable>) recipe.getIngredients());
+        startActivity(intent);
     }
 }

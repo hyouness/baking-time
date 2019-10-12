@@ -30,7 +30,7 @@ public class Ingredient implements Parcelable {
         this.measure = measure;
     }
 
-    public String getIngredient() {
+    public String getName() {
         return ingredient;
     }
 

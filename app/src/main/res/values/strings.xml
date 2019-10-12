@@ -6,4 +6,5 @@
     <string name="retry">Retry</string>
     <string name="no_recipes">No recipes found.</string>
     <string name="servings_icon">Icon for number of servings</string>
+    <string name="no_ingredients">No ingredients found.</string>
 </resources>
