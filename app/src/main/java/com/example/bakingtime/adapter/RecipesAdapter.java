@@ -17,9 +17,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesViewHolder> {
 
     private List<Recipe> recipes = new ArrayList<>();
 
-    private OnRecipeClickListener onRecipeClickListener;
+    private OnItemClickListener<Recipe> onRecipeClickListener;
 
-    public RecipesAdapter(OnRecipeClickListener onRecipeClickListener) {
+    public RecipesAdapter(OnItemClickListener<Recipe> onRecipeClickListener) {
         this.onRecipeClickListener = onRecipeClickListener;
     }
 
@@ -51,6 +51,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesViewHolder> {
     }
 
     void onRecipeClick(Recipe recipe) {
-        onRecipeClickListener.onRecipeClick(recipe);
+        onRecipeClickListener.onItemClick(recipe);
     }
 }

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingtime.R;
-import com.example.bakingtime.adapter.OnRecipeClickListener;
+import com.example.bakingtime.adapter.OnItemClickListener;
 import com.example.bakingtime.adapter.RecipesAdapter;
 import com.example.bakingtime.model.Recipe;
 import com.example.bakingtime.utilities.AppConstants;
@@ -26,7 +26,7 @@ import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements OnRecipeClickListener {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener<Recipe> {
 
     @BindView(R.id.recipes_rv)
     RecyclerView recyclerView;
@@ -121,9 +121,10 @@ public class MainActivity extends AppCompatActivity implements OnRecipeClickList
     }
 
     @Override
-    public void onRecipeClick(Recipe recipe) {
+    public void onItemClick(Recipe recipe) {
         Intent intent = new Intent(this, RecipeDetailsActivity.class);
         intent.putExtra(AppConstants.RECIPE_NAME, recipe.getName());
+        intent.putParcelableArrayListExtra(AppConstants.RECIPE_STEPS, (ArrayList<? extends Parcelable>) recipe.getSteps());
         intent.putParcelableArrayListExtra(AppConstants.RECIPE_INGREDIENTS, (ArrayList<? extends Parcelable>) recipe.getIngredients());
         startActivity(intent);
     }
