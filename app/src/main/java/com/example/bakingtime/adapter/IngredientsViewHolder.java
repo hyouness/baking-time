@@ -2,10 +2,10 @@ package com.example.bakingtime.adapter;
 
 import android.graphics.Color;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingtime.R;
@@ -20,7 +20,7 @@ class IngredientsViewHolder extends RecyclerView.ViewHolder {
     private static final String UNIT = "UNIT";
 
     @BindView(R.id.ingredient_layout)
-    LinearLayout layout;
+    ConstraintLayout layout;
 
     @BindView(R.id.ingredient_name)
     TextView nameTV;
