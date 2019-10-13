@@ -25,6 +25,9 @@ class StepsViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.step_layout)
     ConstraintLayout stepLayout;
 
+    @BindView(R.id.step_id_tv)
+    TextView stepIdTV;
+
     @BindView(R.id.step_tv)
     TextView stepTV;
 
@@ -51,8 +54,14 @@ class StepsViewHolder extends RecyclerView.ViewHolder {
         } else {
             stepLayout.setBackgroundColor(Color.WHITE);
         }
-        stepTV.setText(String.format("%s.\t\t%s", step.getId(), step.getShortDescription()));
-        stepTV.setTextColor(isSelected ? Color.WHITE : defaultTextColor);
+
+        stepTV.setText(step.getShortDescription());
+        stepIdTV.setText(String.format("%s.", step.getId()));
+
+        int textColor = isSelected ? Color.WHITE : defaultTextColor;
+        stepTV.setTextColor(textColor);
+        stepIdTV.setTextColor(textColor);
+
         arrowIV.setImageResource(isSelected ? R.drawable.arrow_selected_icon : R.drawable.arrow_icon);
     }
 
