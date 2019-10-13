@@ -29,6 +29,14 @@ public class StepsFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            steps = getArguments().getParcelableArrayList(AppConstants.RECIPE_STEPS);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_steps, container, false);
@@ -40,14 +48,13 @@ public class StepsFragment extends Fragment {
         recyclerView.setAdapter(stepsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         errorMessageTV = rootView.findViewById(R.id.steps_error_message);
+
+        loadSteps();
+
         return rootView;
     }
 
-    void loadSteps() {
-        if (getArguments() != null && steps.isEmpty()) {
-            steps = getArguments().getParcelableArrayList(AppConstants.RECIPE_STEPS);
-        }
-
+    private void loadSteps() {
         boolean stepsAvailable = steps != null && !steps.isEmpty();
         stepsAdapter.setSteps(stepsAvailable ? steps : new ArrayList<>());
         errorMessageTV.setVisibility(stepsAvailable ? View.INVISIBLE : View.VISIBLE);

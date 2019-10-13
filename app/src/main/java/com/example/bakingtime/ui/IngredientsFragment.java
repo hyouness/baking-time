@@ -29,6 +29,14 @@ public class IngredientsFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            ingredients = getArguments().getParcelableArrayList(AppConstants.RECIPE_INGREDIENTS);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_ingredients, container, false);
@@ -40,14 +48,13 @@ public class IngredientsFragment extends Fragment {
         recyclerView.setAdapter(ingredientsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         errorMessageTV = rootView.findViewById(R.id.ingredients_error_message);
+
+        loadIngredients();
+
         return rootView;
     }
 
-    void loadIngredients() {
-        if (getArguments() != null && ingredients.isEmpty()) {
-            ingredients = getArguments().getParcelableArrayList(AppConstants.RECIPE_INGREDIENTS);
-        }
-
+    private void loadIngredients() {
         boolean ingredientsAvailable = ingredients != null && !ingredients.isEmpty();
         ingredientsAdapter.setIngredients(ingredientsAvailable ? ingredients : new ArrayList<>());
         errorMessageTV.setVisibility(ingredientsAvailable ? View.INVISIBLE : View.VISIBLE);
