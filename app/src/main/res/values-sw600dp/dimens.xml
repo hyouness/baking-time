@@ -7,6 +7,7 @@
     <dimen name="recipe_title_text_size">20sp</dimen>
     <dimen name="servings_icon_size">18dp</dimen>
     <dimen name="arrow_icon_size">10dp</dimen>
+    <dimen name="player_view_height" type="dimen" format="float">0.44</dimen>
     <item name="step_id_width" type="dimen" format="float">0.06</item>
     <item name="step_width" type="dimen" format="float">0.79</item>
 </resources>

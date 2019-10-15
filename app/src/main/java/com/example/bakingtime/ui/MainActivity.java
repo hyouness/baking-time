@@ -18,6 +18,7 @@ import com.example.bakingtime.adapter.OnItemClickListener;
 import com.example.bakingtime.adapter.RecipesAdapter;
 import com.example.bakingtime.model.Recipe;
 import com.example.bakingtime.utilities.AppConstants;
+import com.example.bakingtime.utilities.SharedPreferenceUtils;
 import com.example.bakingtime.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        SharedPreferenceUtils.initialize(getApplicationContext());
+
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         recipesAdapter = new RecipesAdapter(this);
@@ -69,7 +72,13 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         loadRecipes();
     }
 
-     void loadRecipes() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferenceUtils.clearSelectedStepId();
+    }
+
+    void loadRecipes() {
         hideErrorMessage();
         showProgressBar();
         if (!viewModel.getRecipes().hasObservers()) {

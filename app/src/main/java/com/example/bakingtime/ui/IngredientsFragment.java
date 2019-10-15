@@ -60,4 +60,12 @@ public class IngredientsFragment extends Fragment {
         errorMessageTV.setVisibility(ingredientsAvailable ? View.INVISIBLE : View.VISIBLE);
     }
 
+
+    static IngredientsFragment newInstance(ArrayList<Ingredient> ingredients) {
+        IngredientsFragment ingredientsFragment = new IngredientsFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(AppConstants.RECIPE_INGREDIENTS, ingredients);
+        ingredientsFragment.setArguments(args);
+        return ingredientsFragment;
+    }
 }

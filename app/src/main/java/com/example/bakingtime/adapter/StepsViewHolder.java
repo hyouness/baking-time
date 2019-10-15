@@ -21,7 +21,6 @@ import butterknife.OnClick;
 
 class StepsViewHolder extends RecyclerView.ViewHolder {
 
-
     @BindView(R.id.step_layout)
     ConstraintLayout stepLayout;
 
@@ -49,15 +48,17 @@ class StepsViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(Step step, boolean isSelected) {
+        stepTV.setText(step.getShortDescription());
+        stepIdTV.setText(String.format("%s.", step.getId()));
+        updateStepUI(isSelected);
+    }
+
+    private void updateStepUI(boolean isSelected) {
         if (isSelected) {
             stepLayout.setBackground(recipeStepGradient);
         } else {
             stepLayout.setBackgroundColor(Color.WHITE);
         }
-
-        stepTV.setText(step.getShortDescription());
-        stepIdTV.setText(String.format("%s.", step.getId()));
-
         int textColor = isSelected ? Color.WHITE : defaultTextColor;
         stepTV.setTextColor(textColor);
         stepIdTV.setTextColor(textColor);
@@ -68,6 +69,6 @@ class StepsViewHolder extends RecyclerView.ViewHolder {
     @OnClick
     void onClick(View view) {
         Step step = stepsAdapter.getSteps().get(getAdapterPosition());
-        this.stepsAdapter.onStepClick(step);
+        this.stepsAdapter.onStepClick(step, getAdapterPosition());
     }
 }

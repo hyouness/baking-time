@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingtime.R;
 import com.example.bakingtime.model.Step;
+import com.example.bakingtime.utilities.SharedPreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull StepsViewHolder holder, int position) {
-        holder.bind(steps.get(position), position == 1);
+        holder.bind(steps.get(position), position == SharedPreferenceUtils.getSelectedStepId());
     }
 
     @Override
@@ -50,7 +51,9 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
         return steps;
     }
 
-    void onStepClick(Step step) {
-//        onStepClickListener.onItemClick(step);
+    void onStepClick(Step step, int adapterPosition) {
+        SharedPreferenceUtils.updateSelectedStepId(adapterPosition);
+        notifyDataSetChanged();
+        onStepClickListener.onItemClick(step);
     }
 }
