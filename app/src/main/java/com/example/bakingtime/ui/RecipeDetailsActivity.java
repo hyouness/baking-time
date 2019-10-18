@@ -1,5 +1,6 @@
 package com.example.bakingtime.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RecipeDetailsActivity extends AppCompatActivity implements OnItemClickListener<Step> {
+public class RecipeDetailsActivity extends AppCompatActivity implements OnItemClickListener<Step>, StepDetailsFragment.OnChangeStepListener {
 
     private static final String INGREDIENTS = "Ingredients";
     private static final String STEPS = "Steps";
@@ -57,16 +58,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
     @BindString(R.string.app_name)
     String appName;
 
-    @BindBool(R.bool.isTwoPaneMode)
-    boolean isTwoPaneMode;
-
     @BindBool(R.bool.isTablet)
     boolean isTablet;
 
     @BindBool(R.bool.isLandscape)
     boolean isLandscape;
 
+    IngredientsFragment ingredientsFragment;
+    StepsFragment stepsFragment;
+    StepDetailsFragment stepDetailsFragment;
+
     private SimpleExoPlayer player;
+    private ArrayList<Step> steps= new ArrayList<>();
+    private ArrayList<Ingredient> ingredients = new ArrayList<>();
 
 
     @Override
@@ -77,9 +81,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
 
         SharedPreferenceUtils.initialize(getApplicationContext());
 
-        ArrayList<Step> steps = new ArrayList<>();
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             steps = extras.getParcelableArrayList(AppConstants.RECIPE_STEPS);
@@ -88,16 +89,40 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
             setTitle(recipeName);
         }
 
-        if (!isTwoPaneMode && viewPager != null && tabLayout != null) {
+        populateUI(savedInstanceState, ingredients);
+    }
+
+    private void populateUI(Bundle savedInstanceState, ArrayList<Ingredient> ingredients) {
+        if (!isTablet) {
+            assert viewPager != null;
+            assert tabLayout != null;
             Step recipeIntro = getRecipeIntroStep(steps);
             long playbackPosition = savedInstanceState != null ? savedInstanceState.getLong(AppConstants.PLAYBACK_POSITION, 0) : 0;
             initializePlayer(recipeIntro.getVideoUrl(), playbackPosition);
 
-            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-            adapter.addFragment(IngredientsFragment.newInstance(ingredients), INGREDIENTS);
-            adapter.addFragment(StepsFragment.newInstance(steps), STEPS);
-            viewPager.setAdapter(adapter);
+            ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            pagerAdapter.addFragment(IngredientsFragment.newInstance(ingredients), INGREDIENTS);
+            pagerAdapter.addFragment(StepsFragment.newInstance(steps), STEPS);
+            viewPager.setAdapter(pagerAdapter);
             tabLayout.setupWithViewPager(viewPager);
+        } else {
+            ingredientsFragment = (IngredientsFragment) getSupportFragmentManager().findFragmentById(R.id.ingredients_fragment);
+            assert ingredientsFragment != null;
+            ingredientsFragment.setIngredients(ingredients);
+
+            stepsFragment = (StepsFragment) getSupportFragmentManager().findFragmentById(R.id.steps_fragment);
+            int selectedStepIndex = SharedPreferenceUtils.getSelectedStepIndex() == -1 ? 0 : SharedPreferenceUtils.getSelectedStepIndex();
+            SharedPreferenceUtils.updateSelectedStepIndex(selectedStepIndex);
+            assert stepsFragment != null;
+            stepsFragment.setSteps(steps);
+
+            stepDetailsFragment = (StepDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.step_details_container);
+            if (stepDetailsFragment == null) {
+                stepDetailsFragment = StepDetailsFragment.newInstance(steps);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.step_details_container, stepDetailsFragment)
+                        .commit();
+            }
         }
     }
 
@@ -117,6 +142,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
     }
 
     private void initializePlayer(String videoUrl, long playbackPosition) {
+        if (videoUrl.isEmpty()) {
+            return;
+        }
+
         assert playerView != null;
         if (isLandscape) {
             playerView.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -126,7 +155,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
             playerView.getLayoutParams().height = 0;
         }
 
-        System.out.println("Playback Position: " + playbackPosition);
         player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(), new DefaultTrackSelector());
         playerView.setPlayer(player);
         player.prepare(getMediaSource(videoUrl));
@@ -152,11 +180,47 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(AppConstants.PLAYBACK_POSITION, player.getCurrentPosition());
+        if (player != null) {
+            outState.putLong(AppConstants.PLAYBACK_POSITION, player.getCurrentPosition());
+        }
     }
 
     @Override
     public void onItemClick(Step step) {
-        
+        if (player != null) {
+            player.setPlayWhenReady(false);
+            Intent intent = new Intent(this, StepDetailsActivity.class);
+            intent.putExtra(AppConstants.RECIPE_STEPS, steps);
+            intent.putExtra(AppConstants.RECIPE_NAME, getTitle());
+            startActivity(intent);
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.step_details_container, StepDetailsFragment.newInstance(steps))
+                    .commit();
+        }
+    }
+
+    @Override
+    public void nextStep() {
+        if (stepsFragment != null) {
+            int nextStepIndex = SharedPreferenceUtils.getSelectedStepIndex() + 1;
+            reloadStepDetailsFragment(nextStepIndex % steps.size());
+        }
+    }
+
+    @Override
+    public void previousStep() {
+        if (stepsFragment != null) {
+            int prevStepIndex = SharedPreferenceUtils.getSelectedStepIndex() - 1;
+            reloadStepDetailsFragment(prevStepIndex >= 0 ? prevStepIndex : steps.size() - 1);
+        }
+    }
+
+    private void reloadStepDetailsFragment(int stepIndex) {
+        SharedPreferenceUtils.updateSelectedStepIndex(stepIndex);
+        stepsFragment.loadSteps();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.step_details_container, StepDetailsFragment.newInstance(steps))
+                .commit();
     }
 }

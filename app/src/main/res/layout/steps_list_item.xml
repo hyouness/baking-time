@@ -6,8 +6,7 @@
     android:id="@+id/step_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:background="@drawable/recipe_step_gradient">
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/step_id_tv"
@@ -15,7 +14,6 @@
         android:layout_height="match_parent"
         android:gravity="end"
         android:textSize="@dimen/details_text_size"
-        android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintWidth_percent="@dimen/step_id_width"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +32,6 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:textSize="@dimen/details_text_size"
-        android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintWidth_percent="@dimen/step_width"
         app:layout_constraintStart_toEndOf="@id/step_id_tv"
@@ -55,7 +52,7 @@
             android:id="@+id/arrow_iv"
             android:layout_width="@dimen/arrow_icon_size"
             android:layout_height="@dimen/arrow_icon_size"
-            android:src="@drawable/arrow_selected_icon"
+            android:src="@drawable/arrow_icon"
             android:layout_gravity="center"
             android:contentDescription="@string/arrow_icon" />
     </LinearLayout>

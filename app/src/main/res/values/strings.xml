@@ -8,5 +8,12 @@
     <string name="servings_icon" translatable="false">Icon for number of servings</string>
     <string name="no_ingredients" translatable="false">No ingredients found.</string>
     <string name="no_instructions" translatable="false">No instructions found.</string>
-    <string name="arrow_icon">Arrow Icon</string>
+    <string name="arrow_icon" translatable="false">Arrow Icon</string>
+    <string name="no_steps" translatable="false">No steps found.</string>
+    <string name="ingredients" translatable="false">Ingredients</string>
+    <string name="no_video_available" translatable="false">No video available for current step.</string>
+    <string name="dummy_step_description" translatable="false"><![CDATA[2. Whisk the graham cracker crumbs, 50 grams (&#188; cup) of sugar, and &#189; teaspoon of salt together in a medium bowl. Pour the melted butter and 1 teaspoon of vanilla into the dry ingredients and stir together until evenly mixed.]]></string>
+    <string name="dummy_step_title" translatable="false">Prep the cookie crust.</string>
+    <string name="next_step" translatable="false">Next</string>
+    <string name="previous_step" translatable="false">Prev</string>
 </resources>

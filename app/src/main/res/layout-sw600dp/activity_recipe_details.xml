@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.RecipeDetailsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ingredients_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/recipe_details_margin"
+        android:layout_marginStart="@dimen/recipe_details_margin"
+        android:layout_marginEnd="@dimen/recipe_details_margin"
+        android:layout_marginBottom="@dimen/recipe_details_inner_space"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ingredients"
+                android:padding="5dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/recipe_title_text_size"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"/>
+            <fragment
+                android:id="@+id/ingredients_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.example.bakingtime.ui.IngredientsFragment" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/steps_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/recipe_details_inner_space"
+        android:layout_marginTop="@dimen/recipe_details_inner_space"
+        android:layout_marginBottom="@dimen/recipe_details_margin"
+        android:layout_marginStart="@dimen/recipe_details_margin"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintWidth_percent="@dimen/steps_list_width"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients_card"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <fragment
+            android:id="@+id/steps_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.example.bakingtime.ui.StepsFragment" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/step_details_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/recipe_details_inner_space"
+        android:layout_marginTop="@dimen/recipe_details_inner_space"
+        android:layout_marginBottom="@dimen/recipe_details_margin"
+        android:layout_marginEnd="@dimen/recipe_details_margin"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintStart_toEndOf="@+id/steps_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients_card"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <FrameLayout
+            android:id="@+id/step_details_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

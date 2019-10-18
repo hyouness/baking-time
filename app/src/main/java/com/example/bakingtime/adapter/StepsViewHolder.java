@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bakingtime.R;
 import com.example.bakingtime.model.Step;
 
+import butterknife.BindBool;
 import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -33,6 +34,9 @@ class StepsViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.arrow_iv)
     ImageView arrowIV;
 
+    @BindBool(R.bool.isTablet)
+    boolean isTablet;
+
     @BindColor(android.R.color.tab_indicator_text)
     int defaultTextColor;
 
@@ -50,7 +54,9 @@ class StepsViewHolder extends RecyclerView.ViewHolder {
     void bind(Step step, boolean isSelected) {
         stepTV.setText(step.getShortDescription());
         stepIdTV.setText(String.format("%s.", step.getId()));
-        updateStepUI(isSelected);
+        if (isTablet) {
+            updateStepUI(isSelected);
+        }
     }
 
     private void updateStepUI(boolean isSelected) {

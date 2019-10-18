@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <item name="step_id_width" type="dimen" format="float">0.06</item>
+    <item name="step_width" type="dimen" format="float">0.79</item>
+    <item name="steps_list_width" type="dimen" format="float" tools:ignore="MissingDefaultResource">0.45</item>
+    <dimen name="recipe_details_margin" tools:ignore="MissingDefaultResource">20dp</dimen>
+</resources>

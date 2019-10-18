@@ -34,7 +34,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull StepsViewHolder holder, int position) {
-        holder.bind(steps.get(position), position == SharedPreferenceUtils.getSelectedStepId());
+        holder.bind(steps.get(position), position == SharedPreferenceUtils.getSelectedStepIndex());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
     }
 
     void onStepClick(Step step, int adapterPosition) {
-        SharedPreferenceUtils.updateSelectedStepId(adapterPosition);
+        SharedPreferenceUtils.updateSelectedStepIndex(adapterPosition);
         notifyDataSetChanged();
         onStepClickListener.onItemClick(step);
     }

@@ -69,10 +69,18 @@ public class StepsFragment extends Fragment {
         loadSteps();
     }
 
-    private void loadSteps() {
+    void loadSteps() {
         boolean stepsAvailable = steps != null && !steps.isEmpty();
         stepsAdapter.setSteps(stepsAvailable ? steps : new ArrayList<>());
         errorMessageTV.setVisibility(stepsAvailable ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    void setSteps(ArrayList<Step> steps) {
+        this.steps = steps;
+        Bundle arguments = new Bundle();
+        arguments.putParcelableArrayList(AppConstants.RECIPE_STEPS, steps);
+        setArguments(arguments);
+        loadSteps();
     }
 
     @Override

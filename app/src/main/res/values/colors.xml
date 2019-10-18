@@ -7,7 +7,7 @@
     <color name="scrollbarColor">#AAc43e00</color>
     <color name="title_gradient_start_color">#c0c43e00</color>
     <color name="title_gradient_end_color">#ccff6f00</color>
-    <color name="step_gradient_start_color">#c0ff6f00</color>
-    <color name="step_gradient_end_color">#ccff6f00</color>
+    <color name="step_gradient_start_color">#f0ff6f00</color>
+    <color name="step_gradient_end_color">#fdff6f00</color>
     <color name="ingredientItem">#95ffd170</color>
 </resources>

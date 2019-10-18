@@ -16,7 +16,6 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".ui.StepDetailsActivity"
-            android:screenOrientation="portrait"
             android:parentActivityName=".ui.RecipeDetailsActivity" />
         <activity
             android:name=".ui.RecipeDetailsActivity"

@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 
 final public class SharedPreferenceUtils {
 
-    private static final String SELECTED_STEP_ID = "selected_step_id";
+    private static final String SELECTED_STEP_INDEX = "selected_step_index";
 
     private static SharedPreferences preferences;
 
@@ -20,17 +20,22 @@ final public class SharedPreferenceUtils {
         }
     }
 
-    public static void updateSelectedStepId(long stepId) {
+    public static void updateSelectedStepIndex(int stepPos) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putLong(SELECTED_STEP_ID, stepId);
+        editor.putInt(SELECTED_STEP_INDEX, stepPos);
         editor.apply();
     }
 
-    public static long getSelectedStepId() {
-        return preferences.getLong(SELECTED_STEP_ID, -1);
+    public static int getSelectedStepIndex() {
+        return getSelectedStepIndex(-1);
+    }
+
+
+    public static int getSelectedStepIndex(int defValue) {
+        return preferences.getInt(SELECTED_STEP_INDEX, defValue);
     }
 
     public static void clearSelectedStepId() {
-        updateSelectedStepId(-1);
+        updateSelectedStepIndex(-1);
     }
 }
