@@ -8,8 +8,10 @@
     <dimen name="servings_icon_size">15dp</dimen>
     <dimen name="card_radius">8dp</dimen>
     <dimen name="arrow_icon_size">10dp</dimen>
-    <dimen name="player_view_height" type="dimen" format="float">0.35</dimen>
-    <item name="step_id_width" type="dimen" format="float">0.1</item>
-    <item name="step_width" type="dimen" format="float">0.75</item>
-    <dimen name="step_description_height" type="dimen" format="float">0.45</dimen>
+    <dimen name="player_view_height" format="float" type="dimen">0.35</dimen>
+    <item name="step_id_width" format="float" type="dimen">0.1</item>
+    <item name="step_width" format="float" type="dimen">0.75</item>
+    <dimen name="step_description_height" format="float" type="dimen">0.45</dimen>
+
+    <dimen name="widget_margin">0dp</dimen>
 </resources>

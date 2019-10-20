@@ -22,6 +22,8 @@ import static com.example.bakingtime.utilities.JsonUtils.optString;
 
 public class RecipeListDeserializer implements JsonDeserializer<ResponseList<Recipe>> {
 
+    private static final String UNIT = "UNIT";
+
     RecipeListDeserializer() { }
 
     @Override
@@ -70,10 +72,14 @@ public class RecipeListDeserializer implements JsonDeserializer<ResponseList<Rec
             double quantity = optDouble(ingredientObject.get("quantity"));
             String measure = optString(ingredientObject.get("measure"));
             String ingredient = optString(ingredientObject.get("ingredient"));
-            ingredients.add(new Ingredient(quantity, measure, ingredient));
+            ingredients.add(new Ingredient(ingredient, getQuantityStr(quantity, measure)));
         }
 
         return ingredients;
+    }
+
+    private static String getQuantityStr(double quantity, String measure) {
+        return String.format("%s %s", quantity, measure.equals(UNIT) ? "" : measure);
     }
 
     private static List<Step> getSteps(JsonArray stepsJson) {

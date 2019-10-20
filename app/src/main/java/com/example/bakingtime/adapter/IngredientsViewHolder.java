@@ -17,8 +17,6 @@ import butterknife.ButterKnife;
 
 class IngredientsViewHolder extends RecyclerView.ViewHolder {
 
-    private static final String UNIT = "UNIT";
-
     @BindView(R.id.ingredient_layout)
     ConstraintLayout layout;
 
@@ -38,12 +36,7 @@ class IngredientsViewHolder extends RecyclerView.ViewHolder {
 
     void bind(Ingredient ingredient, int position) {
         nameTV.setText(ingredient.getName());
-        quantityTV.setText(getQuantity(ingredient));
+        quantityTV.setText(ingredient.getQuantity());
         layout.setBackgroundColor(position % 2 == 0 ? Color.WHITE : oddColor);
-    }
-
-    private static String getQuantity(Ingredient ingredient) {
-        String measure = ingredient.getMeasure().equals(UNIT) ? "" : " " + ingredient.getMeasure();
-        return ingredient.getQuantity() + measure;
     }
 }

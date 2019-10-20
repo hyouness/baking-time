@@ -10,4 +10,5 @@
     <color name="step_gradient_start_color">#f0ff6f00</color>
     <color name="step_gradient_end_color">#fdff6f00</color>
     <color name="ingredientItem">#95ffd170</color>
+    <color name="widget_text_color">#707070</color>
 </resources>

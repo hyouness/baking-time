@@ -3,32 +3,25 @@ package com.example.bakingtime.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class Ingredient implements Parcelable {
-    private double quantity;
-    private String measure;
+    private String quantity;
     private String ingredient;
 
-    public Ingredient(double quantity, String measure, String ingredient) {
+    public Ingredient(String ingredient, String quantity) {
         this.quantity = quantity;
-        this.measure = measure;
         this.ingredient = ingredient;
     }
 
-    public double getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
-    public String getMeasure() {
-        return measure;
-    }
-
-    public void setMeasure(String measure) {
-        this.measure = measure;
-    }
 
     public String getName() {
         return ingredient;
@@ -45,14 +38,12 @@ public class Ingredient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeDouble(quantity);
-        dest.writeString(measure);
+        dest.writeString(quantity);
         dest.writeString(ingredient);
     }
 
     private Ingredient(Parcel in) {
-        quantity = in.readDouble();
-        measure = in.readString();
+        quantity = in.readString();
         ingredient = in.readString();
     }
 
@@ -67,4 +58,10 @@ public class Ingredient implements Parcelable {
             return new Ingredient[size];
         }
     };
+
+    @NonNull
+    @Override
+    public String toString() {
+        return ingredient;
+    }
 }

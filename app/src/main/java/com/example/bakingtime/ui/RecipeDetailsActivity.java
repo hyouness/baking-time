@@ -1,8 +1,12 @@
 package com.example.bakingtime.ui;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,7 @@ import com.example.bakingtime.model.Ingredient;
 import com.example.bakingtime.model.Step;
 import com.example.bakingtime.utilities.AppConstants;
 import com.example.bakingtime.utilities.SharedPreferenceUtils;
+import com.example.bakingtime.widget.RecipeIngredientsWidget;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -69,8 +74,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
     StepDetailsFragment stepDetailsFragment;
 
     private SimpleExoPlayer player;
-    private ArrayList<Step> steps= new ArrayList<>();
+    private ArrayList<Step> steps = new ArrayList<>();
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
+    private String recipeName;
 
 
     @Override
@@ -85,7 +91,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
         if (extras != null) {
             steps = extras.getParcelableArrayList(AppConstants.RECIPE_STEPS);
             ingredients = extras.getParcelableArrayList(AppConstants.RECIPE_INGREDIENTS);
-            String recipeName = extras.getString(AppConstants.RECIPE_NAME);
+            recipeName = extras.getString(AppConstants.RECIPE_NAME);
             setTitle(recipeName);
         }
 
@@ -222,5 +228,32 @@ public class RecipeDetailsActivity extends AppCompatActivity implements OnItemCl
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.step_details_container, StepDetailsFragment.newInstance(steps))
                 .commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_recipe_details, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.add_to_widget) {
+            Intent intent = new Intent(getApplicationContext(), RecipeIngredientsWidget.class);
+            intent.putExtra(AppConstants.RECIPE_NAME, recipeName);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            intent.putParcelableArrayListExtra(AppConstants.WIDGET_RECIPE_INGREDIENTS, ingredients);
+            int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, RecipeIngredientsWidget.class));
+            if (ids != null && ids.length > 0) {
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                sendBroadcast(intent);
+            }
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

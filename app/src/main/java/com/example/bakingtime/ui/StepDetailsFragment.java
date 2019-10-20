@@ -107,6 +107,7 @@ public class StepDetailsFragment extends Fragment {
     }
 
     private void initializePlayer(String videoUrl) {
+        // expand video to fullscreen for mobile devices in landscape mode
         if (!isTablet) {
             playerView.getLayoutParams().height = isLandscape ? ViewGroup.LayoutParams.MATCH_PARENT : 0;
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
