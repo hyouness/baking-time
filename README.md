@@ -21,6 +21,13 @@ This project tests:
 - Offline support for storing recipes
 - Marking recipes as favorites with the ability to look them up
 
+## Libraries
+* [Picasso](https://github.com/square/picasso)
+* [ButterKnife](https://github.com/JakeWharton/butterknife)
+* [Retrofit](https://square.github.io/retrofit/)
+* [ExoPlayer](https://github.com/google/ExoPlayer)
+* [Material Components](https://github.com/material-components/material-components-android)
+
 ## ScreenShots
 
 ### Phone
@@ -34,10 +41,3 @@ This project tests:
 ![](app/src/main/res/drawable-nodpi/tablet_recipes.png) 
 ![](app/src/main/res/drawable-nodpi/tablet_recipe_details.png)
 ![](app/src/main/res/drawable-nodpi/tablet_widget.png)
-
-## Libraries
-* [Picasso](https://github.com/square/picasso)
-* [ButterKnife](https://github.com/JakeWharton/butterknife)
-* [Retrofit](https://square.github.io/retrofit/)
-* [ExoPlayer](https://github.com/google/ExoPlayer)
-* [Material Components](https://github.com/material-components/material-components-android)
