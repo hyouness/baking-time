@@ -27,8 +27,8 @@ This project tests:
 ![](app/src/main/res/drawable-nodpi/phone_recipes.png) 
 ![](app/src/main/res/drawable-nodpi/phone_recipe_details.png)
 ![](app/src/main/res/drawable-nodpi/phone_recipe_step.png)
-![](app/src/main/res/drawable-nodpi/phone_recipe_video.png)
 ![](app/src/main/res/drawable-nodpi/phone_widget.png)
+![](app/src/main/res/drawable-nodpi/phone_recipe_video.png)
 
 ### Tablet
 ![](app/src/main/res/drawable-nodpi/tablet_recipes.png) 
