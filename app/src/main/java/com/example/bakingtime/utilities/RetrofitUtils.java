@@ -1,9 +1,5 @@
 package com.example.bakingtime.utilities;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
 import com.example.bakingtime.model.Recipe;
 import com.example.bakingtime.model.ResponseList;
 import com.example.bakingtime.service.BakingApiService;
@@ -40,14 +36,6 @@ final public class RetrofitUtils {
         }
 
         return retrofit;
-    }
-
-    public static boolean isOnline(Context context) {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        assert cm != null;
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnected();
     }
 
     public static BakingApiService getBakingApiService() {

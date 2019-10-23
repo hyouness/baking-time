@@ -11,7 +11,6 @@ public class SimpleIdlingResource implements IdlingResource {
     @Nullable
     private volatile ResourceCallback callback;
 
-    // Idleness is controlled with this boolean.
     private AtomicBoolean isIdleNow = new AtomicBoolean(true);
 
     @Override
@@ -29,10 +28,6 @@ public class SimpleIdlingResource implements IdlingResource {
         this.callback = callback;
     }
 
-    /**
-     * Sets the new idle state, if isIdleNow is true, it pings the {@link ResourceCallback}.
-     * @param isIdleNow false if there are pending operations, true if idle.
-     */
     public void setIdleState(boolean isIdleNow) {
         this.isIdleNow.set(isIdleNow);
         if (isIdleNow && callback != null) {
