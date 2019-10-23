@@ -28,9 +28,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Credit: https://medium.com/@wasim__/espresso-test-cases-for-android-recyclerview-eb2ceaddc74f
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
