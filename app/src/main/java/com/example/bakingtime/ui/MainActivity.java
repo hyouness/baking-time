@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,6 +22,7 @@ import com.example.bakingtime.adapter.RecipesAdapter;
 import com.example.bakingtime.model.Recipe;
 import com.example.bakingtime.utilities.AppConstants;
 import com.example.bakingtime.utilities.SharedPreferenceUtils;
+import com.example.bakingtime.utilities.SimpleIdlingResource;
 import com.example.bakingtime.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
@@ -50,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     RecipesAdapter recipesAdapter;
     private MainViewModel viewModel;
 
+    @Nullable
+    private SimpleIdlingResource idlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     }
 
     void loadRecipes() {
+        getIdlingResource();
+        if (idlingResource != null) {
+            idlingResource.setIdleState(false);
+        }
+
         hideErrorMessage();
         showProgressBar();
         if (!viewModel.getRecipes().hasObservers()) {
@@ -87,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 if (recipeResponseList != null && !recipeResponseList.getItems().isEmpty()) {
                     recipesAdapter.setRecipes(recipeResponseList.getItems());
                     recyclerView.setVisibility(View.VISIBLE);
+                    if (idlingResource != null) {
+                        idlingResource.setIdleState(true);
+                    }
                 } else {
                     showErrorMessage(recipeResponseList == null ? R.string.error_message : R.string.no_recipes);
                 }
@@ -136,5 +150,14 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         intent.putParcelableArrayListExtra(AppConstants.RECIPE_STEPS, (ArrayList<? extends Parcelable>) recipe.getSteps());
         intent.putParcelableArrayListExtra(AppConstants.RECIPE_INGREDIENTS, (ArrayList<? extends Parcelable>) recipe.getIngredients());
         startActivity(intent);
+    }
+
+    @VisibleForTesting
+    @NonNull
+    public SimpleIdlingResource getIdlingResource() {
+        if (idlingResource == null) {
+            idlingResource = new SimpleIdlingResource();
+        }
+        return idlingResource;
     }
 }
