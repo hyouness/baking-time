@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Credit: https://github.com/udacity/AdvancedAndroid_TeaTime/blob/TESP.04-Solution-AddIdlingResourceMenuActivityTest/app/src/androidTest/java/com/example/android/teatime/IdlingResourceMenuActivityTest.java
+ * Credit: https://github.com/udacity/AdvancedAndroid_TeaTime/blob/TESP.04-Solution-AddIdlingResourceMenuActivityTest/app/src/main/java/com/example/android/teatime/IdlingResource/SimpleIdlingResource.java
  */
 
 public class SimpleIdlingResource implements IdlingResource {
